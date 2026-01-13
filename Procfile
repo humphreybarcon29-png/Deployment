@@ -1,1 +1,1 @@
-command: gunicorn sheeesh:app
+web: gunicorn sheeesh:app
