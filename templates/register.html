@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Warhammer 40k</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body style="background-image: url('https://w0.peakpx.com/wallpaper/357/568/HD-wallpaper-warhammer-warhammer-40k.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center;">
+<img src="https://www.gamewallpapers.com/img_script/mobile_dir2/img.php?src=wallpaper_warhammer_40000_space_marine_2_04_1440x2560.jpg&width=253&height=450&crop-to-fit&sharpen" class="Simg">
+
+<div class="container">
+ <div class="form-box">
+     <h3><strong>Chapter Renewal</strong></h3>
+     <p class="subtitle"><strong>Fill Out the Form</strong></p>
+
+     <form action="{{ url_for('renewal') }}" method="POST">
+         <div class="form-group">
+             <label for="CO"><strong>Company of Origin</strong></label>
+             <input type="text" id="CO" name="CO" required placeholder="Company of Origin">
+         </div>
+         <div class="form-group">
+             <label for="CC"><strong>Chapter Company</strong></label>
+             <input type="text" id="CC" name="CC" required placeholder="Chapter Company">
+         </div>
+         <div class="form-group">
+             <label for="AIN"><strong>Astartes Identification Number (Email)</strong></label>
+             <input type="email" id="AIN" name="AIN" required placeholder="Astartes Identification Number (Email)">
+         </div>
+         <div class="form-group">
+             <label for="PS"><strong>Password</strong></label>
+             <input type="password" id="PS" name="PS" required placeholder="Password">
+         </div>
+
+         <button type="submit" class="btn-submit"><strong>LOG-IN</strong></button>
+     </form>
+ </div>
+</div>
+</body>
+</html>
