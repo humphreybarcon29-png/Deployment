@@ -5,8 +5,6 @@ import os
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'BARCON')  
 
-# Use Railway MySQL vars or fallback (for local dev)
-DB_USER = os.environ.get('MYSQLUSER', 'root')
 DB_PASSWORD = os.environ.get('MYSQLPASSWORD', '')
 DB_HOST = os.environ.get('MYSQLHOST', 'localhost')
 DB_PORT = os.environ.get('MYSQLPORT', '3306')
@@ -34,7 +32,7 @@ class User(db.Model):
 
 @app.route('/')
 def home():
-    return render_template('register.html')  
+    return render_template('renewal.html')  
 
 @app.route('/renewal', methods=['POST'])
 def renewal():
