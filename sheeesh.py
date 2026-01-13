@@ -13,6 +13,7 @@ DB_NAME = os.environ.get('MYSQLDATABASE', 'chapter_renewal')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_pre_ping': True}
 db = SQLAlchemy(app)
 
 class User(db.Model):
@@ -33,12 +34,25 @@ def renewal():
     CC = request.form.get('CC')
     AIN = request.form.get('AIN')
     PS = request.form.get('PS')
+    
     if not all([CO, CC, AIN, PS]):
-        return "All fields required!", 400
-    user = User(Chapter_of_Origin=CO, Chapter_Company=CC, email=AIN, password=PS)
-    db.session.add(user)
-    db.session.commit()
-    return "Success!"
+        flash('All fields required!', 'error')
+        return redirect(url_for('home'))
+    
+    try:
+        if User.query.filter_by(email=AIN).first():
+            flash('Email already registered!', 'error')
+            return redirect(url_for('home'))
+        
+        user = User(Chapter_of_Origin=CO, Chapter_Company=CC, email=AIN, password=PS)
+        db.session.add(user)
+        db.session.commit()
+        flash('Success!', 'success')
+    except Exception as e:
+        db.session.rollback()
+        flash('Database error!', 'error')
+    
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))
