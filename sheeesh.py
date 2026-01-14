@@ -1,19 +1,21 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-import os
+from datetime import datetime
+from werkzeug.security import generate_password_hash
 
-app = Flask(__name__)
-app.secret_key = os.environ.get('SECRET_KEY', 'BARCON')
+app = Flask(_name_)
+app.secret_key = 'BARCON'
 
-DB_USER = os.environ.get('MYSQLUSER', 'root')
-DB_PASSWORD = os.environ.get('MYSQLPASSWORD', '')
-DB_HOST = os.environ.get('MYSQLHOST', 'localhost')
-DB_PORT = os.environ.get('MYSQLPORT', '3306')
-DB_NAME = os.environ.get('MYSQLDATABASE', 'chapter_renewal')
-
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+# DATABASE CONFIG FOR RAILWAY ONLY
+app.config['SQLALCHEMY_DATABASE_URI'] = (
+    f"mysql+pymysql://{os.environ['MYSQLUSER']}:"
+    f"{os.environ['MYSQLPASSWORD']}@"
+    f"{os.environ['MYSQLHOST']}:"
+    f"{os.environ['MYSQLPORT']}/"
+    f"{os.environ['MYSQLDATABASE']}"
+)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_pre_ping': True}
 db = SQLAlchemy(app)
 
 class User(db.Model):
