@@ -1,6 +1,7 @@
-Flask
-Flask-SQLAlchemy
-Pymysql
-Werkzueg
+flask
+flask-sqlalchemy
+sqlalchemy
+pymysql
+werkzeug
 cryptography
 gunicorn
