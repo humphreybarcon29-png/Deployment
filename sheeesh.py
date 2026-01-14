@@ -27,7 +27,7 @@ class User(db.Model):
 
 @app.route('/')
 def home():
-    return render_template('register.html')
+    return render_template('renewal.html')
 
 @app.route('/renewal', methods=['POST'])
 def renewal():
