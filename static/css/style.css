@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #666666 0%, #666666 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h3{
+    text-shadow:
+    0 0 5px lightgray,
+    0 0 10px black,
+    0 0 20px grey,
+    0 0 40px dimgray,
+    0 0 80px darkred;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.form-box {
+    background: rgba(102, 102, 102, 0.5);
+    padding: 40px;
+    border-radius: 10%;
+    width: 100%;
+    max-width: 450px;
+    box-shadow:
+    0 0 10px rgba(102, 102, 102, 0.7),
+    0 0 20px rgba(102, 102, 102, 0.6),
+    0 0 30px darkred,
+    0 0 40px red,
+    0 0 50px whitesmoke;
+}
+
+.subtitle {
+    text-align: center;
+    color: darkred;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+.form-group label{
+    color:rgba(136, 8, 8, 1);
+    text-shadow:
+    0 0 5px red;
+}
+
+.form-group input::placeholder{
+    color:rgba(255, 127, 127, 1);
+}
+
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid grey;
+    background-color: dimgray;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+
+}
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background: rgba(102, 102, 102, 0.5);
+    color: darkred;
+    border: 2px solid black;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor:pointer;
+    transition: transform 0.2s ease;
+    margin-top: 10px;
+    text-shadow:
+    0 0 5px red,
+    0 0 10px red,
+    0 0 20px red,
+    0 0 40px red,
+    0 0 80px red;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.Simg{
+    width: 500px;
+    height: 635px;
+    margin: 100px;
+    position: relative;
+    left: 50px;
+    top: 5px;
+    border: 7px solid black;
+    border-radius: 10%;
+    box-shadow:
+    0 0 10px rgba(102, 102, 102, 0.7),
+    0 0 20px rgba(102, 102, 102, 0.6),
+    0 0 30px darkred,
+    0 0 40px red,
+    0 0 50px whitesmoke;
+}
