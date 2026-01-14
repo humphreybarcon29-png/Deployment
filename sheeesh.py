@@ -1,13 +1,11 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
 from werkzeug.security import generate_password_hash
 
-app = Flask(_name_)
+app = Flask(__name__)
 app.secret_key = 'BARCON'
 
-# DATABASE CONFIG FOR RAILWAY ONLY
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     f"mysql+pymysql://{os.environ['MYSQLUSER']}:"
     f"{os.environ['MYSQLPASSWORD']}@"
@@ -16,15 +14,16 @@ app.config['SQLALCHEMY_DATABASE_URI'] = (
     f"{os.environ['MYSQLDATABASE']}"
 )
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 
 class User(db.Model):
-    __tablename__ = 'input'
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     Chapter_of_Origin = db.Column(db.String(100), nullable=False)
     Chapter_Company = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(255), nullable=False)
 
 @app.route('/')
 def home():
@@ -36,24 +35,30 @@ def renewal():
     CC = request.form.get('CC')
     AIN = request.form.get('AIN')
     PS = request.form.get('PS')
-    
+
     if not all([CO, CC, AIN, PS]):
         flash('All fields required!', 'error')
         return redirect(url_for('home'))
-    
+
+    if User.query.filter_by(email=AIN).first():
+        flash('Email already registered!', 'error')
+        return redirect(url_for('home'))
+
     try:
-        if User.query.filter_by(email=AIN).first():
-            flash('Email already registered!', 'error')
-            return redirect(url_for('home'))
-        
-        user = User(Chapter_of_Origin=CO, Chapter_Company=CC, email=AIN, password=PS)
+        hashed_password = generate_password_hash(PS)
+        user = User(
+            Chapter_of_Origin=CO,
+            Chapter_Company=CC,
+            email=AIN,
+            password=hashed_password
+        )
         db.session.add(user)
         db.session.commit()
         flash('Success!', 'success')
-    except Exception as e:
+    except Exception:
         db.session.rollback()
         flash('Database error!', 'error')
-    
+
     return redirect(url_for('home'))
 
 if __name__ == '__main__':
